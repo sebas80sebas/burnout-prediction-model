@@ -11,8 +11,8 @@ PROCESO: Detección de Burnout Laboral
 ├── 2. Execute Python - Feature Engineering
 │   └── Script: feature_engineering.py
 │
-├── 3. Execute Python - Aumento de Datos (SMOTE)
-│   └── Script: smote_augmentation.py
+├── 3. Execute Python - Aumento de Datos (Oversampling)
+│   └── Script: oversampling.py
 │
 ├── 4. Split Data (80% Train / 20% Test)
 │   └── Estratificado por Burnout_Risk
@@ -50,13 +50,13 @@ PROCESO: Detección de Burnout Laboral
 - **Función**: Añadir variables temporales y externas
 - **Input**: ExampleSet del Read CSV
 - **Output**: ExampleSet enriquecido
-- **Script**: Ver `script_feature_engineering.py`
+- **Script**: Ver `feature_engineering.py`
 
-### 3️⃣ **Execute Python** (SMOTE)
-- **Función**: Aumentar datos con SMOTE
+### 3️⃣ **Execute Python** (Oversampling)
+- **Función**: Aumentar datos con oversampling
 - **Input**: ExampleSet enriquecido
 - **Output**: ExampleSet balanceado
-- **Script**: Ver `script_smote.py`
+- **Script**: Ver `oversampling.py`
 
 ### 4️⃣ **Split Data**
 - **Parámetros**:
@@ -109,7 +109,7 @@ PROCESO: Detección de Burnout Laboral
     ↓
 [Execute Python: Feature Eng] → Variables temporales, estacionales
     ↓
-[Execute Python: SMOTE] → Balanceo de clases
+[Execute Python: Oversampling] → Balanceo de clases
     ↓
 [Split Data] → Training (80%) / Test (20%)
     ↓                    ↓
