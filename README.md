@@ -83,11 +83,14 @@ PROCESO: Detección de Burnout Laboral
 
 ### 7️⃣ **Random Forest**
 - **Parámetros**:
-  - number of trees: 100
-  - criterion: gain_ratio
-  - maximal depth: 20
-  - apply pruning: no
-  - confidence: 0.1
+    - number of trees = 100
+    - criterion = gain_ratio
+    - maximal depth = 20
+    - apply pruning = no
+    - apply prepruning = no
+    - voting strategy = confidence vote
+    - guess subset ratio = yes
+    - parallel execution = yes
 
 ### 8️⃣ **Apply Model**
 - **Input**: Model + Test Set
