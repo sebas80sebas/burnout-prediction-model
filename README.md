@@ -71,9 +71,15 @@ PROCESO: Detección de Burnout Laboral
 
 ### 6️⃣ **Logistic Regression**
 - **Parámetros**:
-  - kernel type: auto
-  - use bias: yes
-  - solver: auto
+    - Solver: AUTO → selecciona automáticamente el mejor método de optimización según los datos.
+    - Add intercept (use bias): TRUE → añade el término independiente al modelo.
+    - Use regularization: FALSE → no se aplica penalización L1/L2.
+    - Standardize: TRUE → las variables se estandarizan (media 0, desviación 1) antes del entrenamiento.
+    - Missing values handling: Mean Imputation → los valores faltantes se sustituyen por la media.
+    - Early stopping: activado (3 rondas, tolerancia 0.001) → evita sobreajuste deteniendo el entrenamiento si no hay mejora.
+    - Compute p-values: TRUE → calcula los valores p para evaluar la significancia de cada coeficiente.
+    - Remove collinear columns: TRUE → elimina atributos altamente correlacionados.
+    - Add intercept (bias): TRUE → incluye el término independiente.
 
 ### 7️⃣ **Random Forest**
 - **Parámetros**:
