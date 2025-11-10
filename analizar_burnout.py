@@ -10,7 +10,7 @@ import numpy as np
 # ==============================================================================
 
 # Carga el CSV que genera RapidMiner
-df_predictions = pd.read_csv('burnout_prediction')
+df_predictions = pd.read_csv('burnout_prediction.csv')
 
 # Métricas manuales de tus capturas
 metricas_rf = {

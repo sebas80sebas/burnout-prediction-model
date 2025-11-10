@@ -1,0 +1,13 @@
+"Criterion";"Value";"Standard Deviation";"Variance"
+"accuracy";0.9953703703703703;;
+"classification_error";0.00462962962962965;;
+"AUC";1.0;;
+"precision";1.0;;
+"recall";0.9876543209876543;;
+"f_measure";0.9937888198757764;;
+"accuracy";0.8148148148148148;;
+"classification_error";0.18518518518518523;;
+"AUC";0.9197988111568358;;
+"precision";0.9555555555555556;;
+"recall";0.5308641975308642;;
+"f_measure";0.6825396825396826;;
