@@ -156,23 +156,33 @@ def rm_main(df):
     # 6. VARIABLE OBJETIVO: BURNOUT_RISK
     # ============================================
     print("\n[6/7] Creando variable objetivo: Burnout_Risk...")
-    
+
     if 'Absenteeism time in hours' in df.columns:
         # Rellenar NaN antes de calcular quantile
         hours_clean = df['Absenteeism time in hours'].fillna(0)
         threshold_burnout = hours_clean.quantile(0.75)
+
+        # Crear variable numérica 0/1
         df['Burnout_Risk'] = (hours_clean > threshold_burnout).astype(int)
-        
-        n_bajo = (df['Burnout_Risk'] == 0).sum()
-        n_alto = (df['Burnout_Risk'] == 1).sum()
-        
-        print(f"   ✓ Burnout_Risk creada")
+
+        # 🔹 Convertir a categorías nominales
+        df['Burnout_Risk'] = np.where(df['Burnout_Risk'] == 1, 'Alto', 'Bajo')
+        df['Burnout_Risk'] = df['Burnout_Risk'].astype('category')
+
+        # Estadísticas
+        n_bajo = (df['Burnout_Risk'] == 'Bajo').sum()
+        n_alto = (df['Burnout_Risk'] == 'Alto').sum()
+
+        print(f"   ✓ Burnout_Risk creada (nominal)")
         print(f"   ✓ Umbral: {threshold_burnout:.1f} horas")
         print(f"   ✓ Distribución:")
-        print(f"      - Bajo riesgo (0): {n_bajo} ({n_bajo/len(df)*100:.1f}%)")
-        print(f"      - Alto riesgo (1): {n_alto} ({n_alto/len(df)*100:.1f}%)")
+        print(f"      - Bajo riesgo: {n_bajo} ({n_bajo/len(df)*100:.1f}%)")
+        print(f"      - Alto riesgo: {n_alto} ({n_alto/len(df)*100:.1f}%)")
+
     else:
-        df['Burnout_Risk'] = 0
+        df['Burnout_Risk'] = 'Bajo'
+        df['Burnout_Risk'] = df['Burnout_Risk'].astype('category')
+
     
     # ============================================
     # 7. LIMPIEZA FINAL DE VALORES NULOS

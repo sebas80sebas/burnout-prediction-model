@@ -4,15 +4,23 @@ import numpy as np
 def rm_main(df):
     """
     Aumento de Datos con Oversampling Inteligente (alternativa a SMOTE)
-    Crea muestras sinteticas interpolando entre casos reales
+    Crea muestras sintéticas interpolando entre casos reales
     """
     
     print("="*60)
     print("AUMENTO DE DATOS - Oversampling Inteligente")
     print("="*60)
     print("Dataset recibido: {} registros".format(len(df)))
+
+    # ===============================================================
+    # 🔹 CONVERTIR ETIQUETAS NOMINALES 'Bajo'/'Alto' A NUMÉRICAS 0/1
+    # ===============================================================
+    if 'Burnout_Risk' in df.columns:
+        if df['Burnout_Risk'].dtype.name in ['category', 'object']:
+            print("\nConvirtiendo etiquetas 'Bajo'/'Alto' a valores 0/1 para entrenamiento...")
+            df['Burnout_Risk'] = df['Burnout_Risk'].map({'Bajo': 0, 'Alto': 1})
     
-    # Convertir categoricas a numericas
+    # Convertir categóricas a numéricas (como ya haces)
     for col in df.columns:
         if df[col].dtype.name == 'category':
             df[col] = pd.to_numeric(df[col], errors='coerce')
@@ -22,13 +30,14 @@ def rm_main(df):
         print("ERROR: Burnout_Risk no encontrada")
         return df
     
-    # Estadisticas iniciales
+    # Estadísticas iniciales
     n_class_0 = (df['Burnout_Risk'] == 0).sum()
     n_class_1 = (df['Burnout_Risk'] == 1).sum()
     
-    print("\nDistribucion ANTES:")
+    print("\nDistribución ANTES:")
     print("  Clase 0 (bajo riesgo): {} ({:.1f}%)".format(n_class_0, n_class_0/len(df)*100))
     print("  Clase 1 (alto riesgo): {} ({:.1f}%)".format(n_class_1, n_class_1/len(df)*100))
+    
     
     # Separar clases
     df_majority = df[df['Burnout_Risk'] == 0].copy()
@@ -97,6 +106,14 @@ def rm_main(df):
     n_class_0_after = (df_balanced['Burnout_Risk'] == 0).sum()
     n_class_1_after = (df_balanced['Burnout_Risk'] == 1).sum()
     
+    # ===============================================================
+    # 🔹 Forzar que Burnout_Risk sea binominal (2 clases exactas)
+    # ===============================================================
+    df_balanced['Burnout_Risk'] = df_balanced['Burnout_Risk'].astype(str)
+    df_balanced['Burnout_Risk'] = df_balanced['Burnout_Risk'].replace({'0': 'No', '1': 'Sí'})
+    df_balanced['Burnout_Risk'] = pd.Categorical(df_balanced['Burnout_Risk'], categories=['No', 'Sí'])
+
+    
     print("\nDistribucion DESPUES:")
     print("  Clase 0 (bajo riesgo): {} ({:.1f}%)".format(n_class_0_after, n_class_0_after/len(df_balanced)*100))
     print("  Clase 1 (alto riesgo): {} ({:.1f}%)".format(n_class_1_after, n_class_1_after/len(df_balanced)*100))
@@ -104,6 +121,7 @@ def rm_main(df):
     print("  Registros originales: {}".format(len(df)))
     print("  Registros balanceados: {}".format(len(df_balanced)))
     print("  Nuevos sinteticos: {} (+{:.1f}%)".format(n_synthetic, (len(df_balanced)/len(df) - 1)*100))
+    
     
     print("\n" + "="*60)
     print("AUMENTO DE DATOS COMPLETADO")
