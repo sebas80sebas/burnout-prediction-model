@@ -1,5 +1,10 @@
 # 🔧 Proceso Completo en Altair AI Studio + Python
 
+## Librerías necesarias para el repositorio
+```bash
+pip install pandas openpyxl matplotlib seaborn numpy
+```
+
 ## Estructura del Proceso en Altair AI Studio
 
 ```
