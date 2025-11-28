@@ -1,6 +1,6 @@
 {
     "metadata": {
-        "fecha_analisis": "2025-11-10 20:55:26",
+        "fecha_analisis": "2025-11-28 17:32:27",
         "herramienta": "RapidMiner + Python",
         "dataset": "burnout_laboral.csv",
         "objetivo": "Predicción de riesgo de burnout"

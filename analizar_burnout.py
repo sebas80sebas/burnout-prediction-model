@@ -6,7 +6,7 @@ from datetime import datetime
 import numpy as np
 
 # ==============================================================================
-# 1. CARGAR TUS DATOS EXPORTADOS DE RAPIDMINER
+# 1. CARGAR DATOS EXPORTADOS DE RAPIDMINER
 # ==============================================================================
 
 # Carga el CSV que genera RapidMiner
@@ -23,14 +23,14 @@ metricas_lr = {
     'test': {'accuracy': 0.82, 'precision': 0.79, 'recall': 0.75, 'f1': 0.77, 'auc': 0.85}
 }
 
-# Matriz de confusión del Random Forest (de tu imagen)
+# Matriz de confusión del Random Forest 
 confusion_matrix = {
     'TN': 133, 'FP': 2,
     'FN': 38, 'TP': 43
 }
 
 # ==============================================================================
-# 2. CREAR REPORTE JSON ESTRUCTURADO
+# 2. REPORTE JSON ESTRUCTURADO
 # ==============================================================================
 
 reporte_completo = {
@@ -69,10 +69,10 @@ reporte_completo = {
 with open('reporte_burnout_completo.json', 'w', encoding='utf-8') as f:
     json.dump(reporte_completo, f, indent=4, ensure_ascii=False)
 
-print("✅ JSON guardado: reporte_burnout_completo.json")
+print("JSON guardado: reporte_burnout_completo.json")
 
 # ==============================================================================
-# 3. CREAR EXCEL CON MÚLTIPLES HOJAS
+# 3. EXCEL CON MÚLTIPLES HOJAS
 # ==============================================================================
 
 with pd.ExcelWriter('resultados_burnout_definitivos.xlsx', engine='openpyxl') as writer:
@@ -120,9 +120,9 @@ with pd.ExcelWriter('resultados_burnout_definitivos.xlsx', engine='openpyxl') as
     try:
         df_predictions.to_excel(writer, sheet_name='Predicciones Detalladas', index=False)
     except:
-        print("⚠️ No se encontró burnout_predictions.csv")
+        print("No se encontró burnout_predictions.csv")
 
-print("✅ Excel guardado: resultados_burnout_definitivos.xlsx")
+print("Excel guardado: resultados_burnout_definitivos.xlsx")
 
 # ==============================================================================
 # 4. GENERAR VISUALIZACIONES
@@ -184,13 +184,13 @@ ax4.set_xlabel('TN=OK sin burnout | FP=Falsa alarma\nFN=No detectado | TP=Detect
 
 plt.tight_layout()
 plt.savefig('analisis_burnout_visualizaciones.png', dpi=300, bbox_inches='tight')
-print("✅ Gráficos guardados: analisis_burnout_visualizaciones.png")
+print("Gráficos guardados: analisis_burnout_visualizaciones.png")
 
 # ==============================================================================
-# 5. GENERAR REPORTE MARKDOWN PARA PRESENTACIÓN
+# 5. REPORTE MARKDOWN PARA PRESENTACIÓN
 # ==============================================================================
 
-markdown_report = f"""# 🔥 INFORME: Modelo Predictivo de Burnout Laboral
+markdown_report = f"""# INFORME: Modelo Predictivo de Burnout Laboral
 
 **Autor:** Tu Nombre  
 **Fecha:** {datetime.now().strftime("%d/%m/%Y")}  
@@ -198,29 +198,29 @@ markdown_report = f"""# 🔥 INFORME: Modelo Predictivo de Burnout Laboral
 
 ---
 
-## 📊 1. RESUMEN EJECUTIVO
+## 1. RESUMEN EJECUTIVO
 
 Se desarrolló un modelo de Machine Learning para **predecir el riesgo de burnout** en empleados utilizando datos laborales. Se compararon dos algoritmos:
 
-- ✅ **Random Forest** (mejor performance)
-- 📊 **Regresión Logística**
+- **Random Forest** (mejor performance)
+- **Regresión Logística**
 
 ### Hallazgos Clave:
 - El modelo Random Forest alcanza **95.6% de precisión** al predecir burnout
-- ⚠️ **Problema crítico:** Solo detecta el 53% de los casos reales (recall bajo)
+- **Problema crítico:** Solo detecta el 53% de los casos reales (recall bajo)
 - Se detectó **overfitting** (18% diferencia train-test)
 
 ---
 
-## 📈 2. RESULTADOS DEL MODELO
+## 2. RESULTADOS DEL MODELO
 
 ### Random Forest (Modelo Seleccionado)
 
 | Métrica | Entrenamiento | Test | Diferencia |
 |---------|---------------|------|------------|
-| **Accuracy** | 99.54% | 81.48% | ⚠️ 18.06% |
+| **Accuracy** | 99.54% | 81.48% | 18.06% |
 | **Precision** | 100% | 95.56% | 4.44% |
-| **Recall** | 98.77% | 53.09% | ⚠️ 45.68% |
+| **Recall** | 98.77% | 53.09% |  45.68% |
 | **F1-Score** | 99.38% | 68.25% | 31.13% |
 | **AUC** | 1.00 | 91.98% | 8.02% |
 
@@ -228,25 +228,25 @@ Se desarrolló un modelo de Machine Learning para **predecir el riesgo de burnou
 
 |                | Predicho: No | Predicho: Sí |
 |----------------|--------------|--------------|
-| **Real: No**   | 133 ✅       | 2            |
-| **Real: Sí**   | 38 ❌        | 43 ✅        |
+| **Real: No**   | 133        | 2            |
+| **Real: Sí**   | 38         | 43         |
 
 **Interpretación:**
-- ✅ **133 empleados** sin burnout correctamente identificados
-- ⚠️ **2 falsas alarmas** (bajo impacto)
-- 🚨 **38 empleados con burnout NO detectados** (CRÍTICO)
-- ✅ **43 empleados** con burnout correctamente identificados
+- **133 empleados** sin burnout correctamente identificados
+- **2 falsas alarmas** (bajo impacto)
+- **38 empleados con burnout NO detectados** (CRÍTICO)
+- **43 empleados** con burnout correctamente identificados
 
 ---
 
-## 🎯 3. INTERPRETACIÓN CLÍNICA
+## 3. INTERPRETACIÓN CLÍNICA
 
 ### ¿Qué significa el Recall de 53%?
 
 El modelo solo identifica **1 de cada 2 personas con burnout real**. Esto significa:
 
-- 💚 Si el modelo dice "SÍ hay burnout" → **95.6% de probabilidad de ser correcto**
-- ⚠️ Si el modelo dice "NO hay burnout" → Puede estar equivocado en el 22% de los casos
+- Si el modelo dice "SÍ hay burnout" → **95.6% de probabilidad de ser correcto**
+- Si el modelo dice "NO hay burnout" → Puede estar equivocado en el 22% de los casos
 
 ### Implicaciones Prácticas:
 
@@ -256,7 +256,7 @@ El modelo solo identifica **1 de cada 2 personas con burnout real**. Esto signif
 
 ---
 
-## 🔍 4. FACTORES DE RIESGO IDENTIFICADOS
+## 4. FACTORES DE RIESGO IDENTIFICADOS
 
 Los factores laborales más asociados con burnout fueron:
 
@@ -268,40 +268,40 @@ Los factores laborales más asociados con burnout fueron:
 
 ---
 
-## 💡 5. RECOMENDACIONES
+## 5. RECOMENDACIONES
 
 ### Para Mejorar el Modelo:
-1. ✅ **Recolectar más datos** de casos positivos de burnout
-2. ✅ **Aplicar SMOTE** para balancear clases
-3. ✅ **Ajustar threshold** de 0.5 a 0.3 (priorizar recall sobre precision)
-4. ✅ **Feature engineering:** Crear variables derivadas (ej: ratio horas/salario)
-5. ✅ **Validación cruzada** estratificada
+1. **Recolectar más datos** de casos positivos de burnout
+2. **Aplicar SMOTE** para balancear clases
+3. **Ajustar threshold** de 0.5 a 0.3 (priorizar recall sobre precision)
+4. **Feature engineering:** Crear variables derivadas (ej: ratio horas/salario)
+5. **Validación cruzada** estratificada
 
 ### Para Implementación en la Empresa:
-1. 🎯 Usar el modelo como **herramienta de apoyo**, no de diagnóstico único
-2. 🎯 Complementar con **entrevistas cualitativas**
-3. 🎯 Realizar **seguimiento trimestral** de empleados en riesgo
-4. 🎯 Implementar **programas de prevención** en áreas de alto riesgo
+1. Usar el modelo como **herramienta de apoyo**, no de diagnóstico único
+2. Complementar con **entrevistas cualitativas**
+3. Realizar **seguimiento trimestral** de empleados en riesgo
+4. Implementar **programas de prevención** en áreas de alto riesgo
 
 ---
 
-## 📁 6. ARCHIVOS GENERADOS
+## 6. ARCHIVOS GENERADOS
 
-- ✅ `reporte_burnout_completo.json` - Datos estructurados
-- ✅ `resultados_burnout_definitivos.xlsx` - Análisis en Excel
-- ✅ `analisis_burnout_visualizaciones.png` - Gráficos
-- ✅ `REPORTE_BURNOUT.md` - Este documento
+- `reporte_burnout_completo.json` - Datos estructurados
+- `resultados_burnout_definitivos.xlsx` - Análisis en Excel
+- `analisis_burnout_visualizaciones.png` - Gráficos
+- `REPORTE_BURNOUT.md` - Este documento
 
 ---
 
-## 🎓 7. CONCLUSIONES
+## 7. CONCLUSIONES
 
 La Inteligencia Artificial puede ser una **herramienta valiosa para la prevención del burnout**, pero:
 
-- ✅ El modelo tiene alta precisión (95.6%) cuando detecta casos
-- ⚠️ Necesita mejoras para aumentar la tasa de detección (recall)
-- 🎯 Debe usarse como complemento a evaluaciones tradicionales
-- 💼 Puede ayudar a priorizar recursos de RR.HH de manera eficiente
+- El modelo tiene alta precisión (95.6%) cuando detecta casos
+- Necesita mejoras para aumentar la tasa de detección (recall)
+- Debe usarse como complemento a evaluaciones tradicionales
+- Puede ayudar a priorizar recursos de RR.HH de manera eficiente
 
 **Próximo paso:** Implementar las mejoras propuestas y validar con nuevos datos.
 
@@ -313,20 +313,20 @@ La Inteligencia Artificial puede ser una **herramienta valiosa para la prevenci�
 with open('REPORTE_BURNOUT_COMPLETO.md', 'w', encoding='utf-8') as f:
     f.write(markdown_report)
 
-print("✅ Reporte Markdown guardado: REPORTE_BURNOUT_COMPLETO.md")
+print("Reporte Markdown guardado: REPORTE_BURNOUT_COMPLETO.md")
 
 # ==============================================================================
 # 6. RESUMEN EN CONSOLA
 # ==============================================================================
 
 print("\n" + "="*70)
-print("📦 ARCHIVOS GENERADOS:")
+print("ARCHIVOS GENERADOS:")
 print("="*70)
 print("1. reporte_burnout_completo.json")
 print("2. resultados_burnout_definitivos.xlsx (4 hojas)")
 print("3. analisis_burnout_visualizaciones.png")
 print("4. REPORTE_BURNOUT_COMPLETO.md")
-print("\n🎯 CONCLUSIÓN PRINCIPAL:")
+print("\nCONCLUSIÓN PRINCIPAL:")
 print("El Random Forest es superior, pero necesita mejoras en el recall.")
 print("Prioridad: Reducir los 38 falsos negativos (burnout no detectado)")
 print("="*70)
