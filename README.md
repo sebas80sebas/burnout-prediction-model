@@ -614,6 +614,108 @@ Editar estos parámetros en el proceso:
 
 ---
 
+## Visualización de Resultados
+
+### Script de Análisis y Gráficos
+
+El proyecto incluye un script Python (`analizar_burnout.py`) que genera visualizaciones completas del modelo:
+
+#### Requisitos Adicionales
+```bash
+matplotlib seaborn numpy pandas openpyxl scikit-learn
+```
+
+#### Ejecución del Script
+
+```bash
+# Asegurarse de estar en el directorio del proyecto
+cd burnout-prediction-model
+
+# Instalar requisitos 
+virtualenv venv
+. venv/bin/activate
+
+# Ejecutar el script de análisis
+python analizar_burnout.py
+```
+
+#### Salidas Generadas
+
+El script produce dos archivos de visualización:
+
+1. **analisis_burnout_completo.png** - Contiene 4 gráficos:
+   - **Train vs Test Metrics**: Comparación de métricas entre entrenamiento y prueba
+   - **Radar de Métricas (Test)**: Visualización radial del rendimiento en test
+   - **Distribución de Resultados Estimada**: Gráfico de barras con TP, FP, FN, TN
+   - **Diferencia Train vs Test (Gap)**: Análisis de overfitting/underfitting
+
+2. **Salida en consola**:
+   ```
+   === Métricas Train ===
+   === Métricas Test ===
+   === Comparación Train vs Test ===
+   === Matriz de Confusión Estimada ===
+   ```
+
+#### Interpretación de los Gráficos
+
+##### 1. Train vs Test Metrics
+- Barras verdes = Rendimiento en entrenamiento
+- Barras coral = Rendimiento en prueba
+- Línea punteada en 0.8 = Threshold de calidad
+- **Interpretación**: Si las barras test están cerca de train, el modelo generaliza bien
+
+##### 2. Radar de Métricas (Test)
+- Pentágono azul muestra balance entre métricas
+- Área rellena = Rendimiento global
+- **Ideal**: Pentágono uniforme y cercano al borde exterior
+
+##### 3. Distribución de Resultados
+- **TN (Verde)**: Verdaderos Negativos - Correctamente identificados sin burnout
+- **FP (Naranja)**: Falsos Positivos - Incorrectamente identificados con burnout
+- **FN (Rojo)**: Falsos Negativos - No detectados (casos perdidos) ⚠️
+- **TP (Azul)**: Verdaderos Positivos - Correctamente identificados con burnout
+
+##### 4. Gap Train-Test
+- Barras positivas = Train > Test (posible overfitting)
+- Barras negativas = Test > Train (poco común, revisar datos)
+- **Objetivo**: Gaps cercanos a 0
+
+#### Ejemplo de Uso
+
+```bash
+# Después de ejecutar el proceso en Altair AI Studio
+# y generar burnout_prediction.csv
+
+# 1. Ejecutar análisis
+python analizar_burnout.py
+
+# 2. Revisar métricas en consola
+# 3. Abrir imagen generada
+# En Windows:
+start analisis_burnout_completo.png
+# En Linux/Mac:
+xdg-open analisis_burnout_completo.png
+# o
+open analisis_burnout_completo.png
+```
+
+#### Personalización del Script
+
+Para modificar los gráficos, editar las siguientes secciones en `analizar_burnout.py`:
+
+```python
+# Cambiar tamaño de figura
+fig, axes = plt.subplots(2, 2, figsize=(14, 10))  # Modificar (ancho, alto)
+
+# Cambiar colores
+colors = ['green','orange','red','blue']  # TN, FP, FN, TP
+
+# Cambiar resolución de salida
+plt.savefig("analisis_burnout_completo.png", dpi=300)  # dpi=150 o 600
+```
+
+---
 ## Troubleshooting
 
 ### Error: "Python Scripting extension not found"
