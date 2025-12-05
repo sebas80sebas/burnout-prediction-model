@@ -202,7 +202,7 @@ def rm_main(df):
     # RESUMEN FINAL
     # ============================================
     print("\n" + "="*60)
-    print("✅ FEATURE ENGINEERING COMPLETADO")
+    print("FEATURE ENGINEERING COMPLETADO")
     print("="*60)
     print(f"Variables totales: {len(df.columns)}")
     print(f"Registros: {len(df)}")

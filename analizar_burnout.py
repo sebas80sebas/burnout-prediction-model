@@ -12,7 +12,7 @@ import numpy as np
 # Carga el CSV que genera RapidMiner
 df_predictions = pd.read_csv('burnout_prediction.csv')
 
-# Métricas manuales de tus capturas
+# Métricas manualmente extraídas de RapidMiner
 metricas_rf = {
     'train': {'accuracy': 0.9954, 'precision': 1.0, 'recall': 0.9877, 'f1': 0.9938, 'auc': 1.0},
     'test': {'accuracy': 0.8148, 'precision': 0.9556, 'recall': 0.5309, 'f1': 0.6825, 'auc': 0.9198}
