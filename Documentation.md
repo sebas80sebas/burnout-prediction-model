@@ -1,10 +1,5 @@
 # ANÁLISIS INTEGRAL DEL SISTEMA DE PREDICCIÓN DE BURNOUT LABORAL
 
-**Trabajo Final - Análisis de Datos**  
-**Autor:** Iván Sebastián Loor Weir  
-**Fecha:** Diciembre 2025  
-**Institución:** Universidad [Nombre]
-
 ---
 
 ## RESUMEN EJECUTIVO
